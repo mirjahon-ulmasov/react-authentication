@@ -1,14 +1,20 @@
-import { Redirect, Route } from "react-router";
+import { Route } from "react-router";
+import UnauthorizedPage from "../pages/error/403";
 
 export default function PrivateRoute({
   component: Component,
-  authed,
-  ...rest
+  token,
+  path,
+  user,
 }) {
   return (
     <Route
       render={(props) =>
-        authed ? <Component {...props} /> : <Redirect to="/login" />
+        token ? (
+          <Component {...props} user={user} path={path} token={token} />
+        ) : (
+          <UnauthorizedPage />
+        )
       }
     />
   );
