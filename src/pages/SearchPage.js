@@ -24,7 +24,7 @@ export default function SearchPage(props) {
   };
 
   return (
-    <MainLayout path={props.path}>
+    <MainLayout path={props.path} data={productList}>
       <Search
         placeholder="Type to search..."
         enterButton="Search"
