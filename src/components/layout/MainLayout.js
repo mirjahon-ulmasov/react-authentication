@@ -24,6 +24,7 @@ export default function MainLayout(props) {
   };
 
   const handleOk = () => {
+    localStorage.clear();
     history.push("/");
   };
 
@@ -68,6 +69,7 @@ export default function MainLayout(props) {
               <NavLink to="/products">Products</NavLink>
             </Menu.Item>
             <Menu.Item
+              disabled={!props.data}
               key="2"
               style={{ fontSize: "16px" }}
               icon={<SearchOutlined style={{ transform: "scale(1.5)" }} />}

@@ -6,9 +6,8 @@ import ProductTable from "../components/products/ProductTable";
 import MainLayout from "../components/layout/MainLayout";
 
 export default function ProductsPage(props) {
-  const [data, setData] = useState(null);
-  const { company } = props.user;
-  const token = props.token;
+  const [data, setData] = useState("");
+  const { company, token } = props.user;
 
   useEffect(() => {
     axios({
@@ -34,7 +33,7 @@ export default function ProductsPage(props) {
   localStorage.setItem("data", JSON.stringify(data));
 
   return (
-    <MainLayout path={props.path}>
+    <MainLayout path={props.path} data={data}>
       {data ? (
         <ProductTable data={data.items} />
       ) : (

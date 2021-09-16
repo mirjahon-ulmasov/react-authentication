@@ -5,7 +5,6 @@ import UserForm from "../components/user/UserForm";
 
 export default function LoginPage(props) {
   const history = useHistory();
-  localStorage.setItem("data", "");
 
   const loginHandler = async (user) => {
     const response = await axios({
@@ -20,8 +19,8 @@ export default function LoginPage(props) {
     if (response.status === 200) {
       const token = await response.data.token;
       if (token) {
-        props.addUser(user);
-        props.addToken(token);
+        props.addUser({ ...user, token });
+        localStorage.setItem("user", JSON.stringify({ ...user, token }));
       }
       history.push("/products");
     }

@@ -8,12 +8,8 @@ import ProductsPage from "./pages/ProductsPage";
 import NotFoundPage from "./pages/error/404";
 
 export default function App() {
-  const [user, setUser] = useState("");
-  const [token, setToken] = useState("");
-
-  const addTokenHandler = (token) => {
-    setToken(token);
-  };
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(loggedInUser);
 
   const addUserHandler = (user) => {
     setUser(user);
@@ -25,20 +21,10 @@ export default function App() {
         <Redirect to="/login" />
       </Route>
       <Route path="/login">
-        <LoginPage addUser={addUserHandler} addToken={addTokenHandler} />
+        <LoginPage addUser={addUserHandler} />
       </Route>
-      <PrivateRoute
-        token={token}
-        path="/products"
-        user={user}
-        component={ProductsPage}
-      />
-      <PrivateRoute
-        token={token}
-        path="/search"
-        user={user}
-        component={SearchPage}
-      />
+      <PrivateRoute path="/products" user={user} component={ProductsPage} />
+      <PrivateRoute path="/search" user={user} component={SearchPage} />
       <Route path="*">
         <NotFoundPage />
       </Route>

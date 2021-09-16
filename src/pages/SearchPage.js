@@ -10,10 +10,16 @@ export default function SearchPage(props) {
   const [productList, setProductList] = useState(data.items);
 
   const searchHandler = (event) => {
+    const searchInput = event.toLowerCase();
     setProductList(
-      data.items.filter((item) =>
-        item.name.toLowerCase().includes(event.toLowerCase())
-      )
+      data.items
+        .filter((item) => item.name.toLowerCase().includes(searchInput))
+        .sort((a, b) => {
+          return (
+            a.name.toLowerCase().indexOf(searchInput) -
+            b.name.toLowerCase().indexOf(searchInput)
+          );
+        })
     );
   };
 
